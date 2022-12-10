@@ -1,0 +1,82 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.hvasoft.weather'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.hvasoft.weather"
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures{
+        dataBinding true
+    }
+}
+
+//General dependencies
+def androidx_core_version = "1.9.0"
+def appcompat_version = "1.5.1"
+def material_version = "1.7.0"
+def constraint_version = "2.1.4"
+
+//Specific dependencies
+def retrofit_version = "2.9.0"
+def lifecycle_version = "2.5.1"
+def activity_version = "1.6.1"
+def coroutines_version = "1.6.4"
+def location_version = "21.0.1"
+
+//Testing dependencies
+def junit_version = "4.13.2"
+def androidx_junit_version = "1.1.4"
+def espresso_version = "3.5.0"
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:$androidx_core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    // Activity
+    implementation "androidx.activity:activity-ktx:$activity_version"
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    // Location
+    implementation "com.google.android.gms:play-services-location:$location_version"
+
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+}
