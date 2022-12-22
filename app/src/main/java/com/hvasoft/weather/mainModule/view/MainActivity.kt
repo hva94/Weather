@@ -54,17 +54,18 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         setupObservers()
         setupAdapter()
         setupRecyclerView()
+        setupWeather()
     }
 
     override fun onStart() {
         super.onStart()
-        getLocationAndRequestWeather()
+        refreshWeather()
     }
 
     private fun setupViewModel() {
-        val viewModel: MainViewModel by viewModels()
+        val mainViewModel: MainViewModel by viewModels()
         mBinding.lifecycleOwner = this
-        mBinding.setVariable(BR.viewModel, viewModel)
+        mBinding.setVariable(BR.viewModel, mainViewModel)
     }
 
     private fun setupObservers() {
@@ -90,20 +91,20 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun getLocationAndRequestWeather() {
-        if (!isLocationEnabled()) {
+    private fun setupWeather() {
+        if (!isLocationServiceEnabled()) {
             Toast.makeText(this, R.string.main_location_off, Toast.LENGTH_LONG).show()
             val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivity(intent)
             return
         }
 
-        if (isLocationPermissionAllowed()) {
+        if (isLocationPermissionGranted()) {
                 if (ActivityCompat.checkSelfPermission(this,
                         Manifest.permission.ACCESS_COARSE_LOCATION) !=
                     PackageManager.PERMISSION_GRANTED)
                 {
-                    requestLocationPermission()
+                    isLocationPermissionAccepted()
                     return
                 }
                 mFusedLocationProviderClient.lastLocation.addOnCompleteListener(this) { task ->
@@ -117,48 +118,61 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                         val latitude = location.latitude
                         val longitude = location.longitude
                         Log.i(TAG, "CurrentLocation: Latitude: $latitude Longitude: $longitude")
-                        lifecycleScope.launch {
-                            mBinding.viewModel?.getWeatherAndForecast(
-                                latitude,
-                                longitude,
-                                getString(R.string.api_key),
-                                getString(R.string.api_param_exclude),
-                                getString(R.string.api_param_units),
-                                getString(R.string.api_param_lang)
-                            )
-                        }
+                        getWeather(latitude, longitude)
                     }
                 }
             } else {
             Toast.makeText(this,
                 R.string.main_permission_location_required, Toast.LENGTH_LONG).show()
-            requestLocationPermission()
+            isLocationPermissionAccepted()
             return
         }
     }
 
-    private fun isLocationEnabled(): Boolean {
+    private fun getWeather(latitude: Double, longitude: Double) {
+        lifecycleScope.launch {
+            mBinding.viewModel?.getWeatherAndForecast(
+                latitude,
+                longitude,
+                getString(R.string.api_key),
+                getString(R.string.api_param_exclude),
+                getString(R.string.api_param_units),
+                getString(R.string.api_param_lang)
+            )
+        }
+    }
+
+    private fun refreshWeather() {
+        with(mBinding.mainSwipeRefresh) {
+            setOnRefreshListener {
+                    setupWeather()
+                    isRefreshing = false
+            }
+        }
+    }
+
+    private fun isLocationServiceEnabled(): Boolean {
         val locationManager: LocationManager =
             getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
 
-    private fun isLocationPermissionAllowed(): Boolean {
+    private fun isLocationPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun requestLocationPermission(): Boolean {
-        if (!isLocationPermissionAllowed()) {
+    private fun isLocationPermissionAccepted(): Boolean {
+        if (!isLocationPermissionGranted()) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this as Activity,
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             ) {
-                showLocationPermissionDeniedDialog()
+                showPermissionDeniedDialog()
             } else {
                 ActivityCompat.requestPermissions(
                     this as Activity,
@@ -180,16 +194,16 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         when (requestCode) {
             PERMISSION_REQUEST_ACCESS_LOCATION -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocationAndRequestWeather()
+                    setupWeather()
                 } else {
-                    requestLocationPermission()
+                    isLocationPermissionAccepted()
                 }
                 return
             }
         }
     }
 
-    private fun showLocationPermissionDeniedDialog() {
+    private fun showPermissionDeniedDialog() {
         AlertDialog.Builder(this)
             .setTitle(R.string.dialog_permission_location)
             .setMessage(R.string.dialog_permission_location_message)

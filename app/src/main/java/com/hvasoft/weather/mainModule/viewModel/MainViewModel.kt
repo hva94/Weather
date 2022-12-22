@@ -18,14 +18,14 @@ class MainViewModel: ViewModel() {
     private val snackbarMsg = MutableLiveData<Int>()
     fun getSnackbarMsg() = snackbarMsg
 
-    private val loaded = MutableLiveData<Boolean>()
-    fun isLoaded() = loaded
+    private val isLoaded = MutableLiveData<Boolean>()
+    fun isLoaded() = isLoaded
 
     suspend fun getWeatherAndForecast(lat: Double, lon: Double, appId: String, exclude: String,
                                       units: String, lang: String){
         viewModelScope.launch {
             try {
-                loaded.value = false
+                isLoaded.value = false
                 val resultServer = repository.getWeatherAndForecast(lat, lon, appId, exclude, units, lang)
                 result.value = resultServer
                 if (resultServer.hourly == null || resultServer.hourly.isEmpty())
@@ -33,7 +33,7 @@ class MainViewModel: ViewModel() {
             } catch (e: Exception) {
                 snackbarMsg.value = R.string.main_error_server
             } finally {
-                loaded.value = true
+                isLoaded.value = true
             }
         }
     }
