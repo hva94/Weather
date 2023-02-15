@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name" translatable="false">Weather - hva94</string>
+
+    <string name="main_current_weather_title">Weather Current:</string>
+    <string name="main_forecast_weather_title">Weather Forecast:</string>
+    <string name="main_location_off">Turn on your Location Services to get Weather</string>
+    <string name="main_permission_location_required">Location permission is required to get Weather</string>
+    <string name="main_message_forecast_temperature">The forecast temperature on %1$s at %2$s will be %3$s with a humidity of %4$s</string>
+
+    <string name="main_error_server">Error with the server, please verify your connection</string>
+    <string name="main_error_empty_forecast">Forecast not available</string>
+    <string name="main_error_get_location">Could not get location, please verify your connection</string>
+
+    <string name="dialog_permission_location">Permission Denied</string>
+    <string name="dialog_permission_location_message">Location permission is denied, please allow permission from App Settings</string>
+    <string name="dialog_permission_location_positive">App Settings</string>
+    <string name="dialog_negative_button">Cancel</string>
+
+    <string name="weather_temp" translatable="false">%.0f°C</string>
+    <string name="weather_dt">Hour: %s</string>
+    <string name="weather_humidity">Humidity: %d%%</string>
+    <string name="weather_pop">Probability of precipitation:</string>
+    <string name="weather_pop_empty" translatable="false" />
+
+    <string name="api_param_exclude" translatable="false" />
+    <string name="api_param_units" translatable="false">metric</string>
+    <string name="api_param_lang">en</string>
+</resources>

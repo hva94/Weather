@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_current_weather_title">Tiempo actual:</string>
+    <string name="main_forecast_weather_title">Previsión meteorológica:</string>
+    <string name="main_location_off">Activa tus Servicios de Ubicación</string>
+    <string name="main_permission_location_required">Se requiere el permiso de Ubicación</string>
+    <string name="main_message_forecast_temperature">El pronóstico de %1$s a las %2$s será de %3$s con una humedad de %4$s</string>
+
+    <string name="main_error_server">Error con el servidor, por favor verifique su conexión</string>
+    <string name="main_error_empty_forecast">Pronóstico no disponible</string>
+    <string name="main_error_get_location">No se pudo obtener la ubicación, por favor verifique su conexión</string>
+
+    <string name="dialog_permission_location">Permiso denegado</string>
+    <string name="dialog_permission_location_message">El permiso de localización fue denegado, favor de permitir el permiso desde la Configuración de la Aplicación</string>
+    <string name="dialog_permission_location_positive">Configuración de la Aplicación</string>
+    <string name="dialog_negative_button">Cancelar</string>
+
+    <string name="weather_dt">Hora: %s</string>
+    <string name="weather_humidity">Humedad: %d%%</string>
+    <string name="weather_pop">Probabilidad de precipitación:</string>
+
+    <string name="api_param_lang">es</string>
+</resources>
