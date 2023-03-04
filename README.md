@@ -7,13 +7,15 @@
 * Architecture Components
 * MVVM Design pattern 
 * DataBinding
+* Dependency Injection
 * Unit Testing
 
 ### Dependencies
+* Retrofit
 * ViewModel
 * Livedata
-* Retrofit
 * Coroutines
+* Dagger Hilt
 * Location Services
 * Swipe Refresh Layout
 

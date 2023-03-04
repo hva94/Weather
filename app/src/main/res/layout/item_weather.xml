@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.hvasoft.weather.common.utils.CommonUtils"/>
+        <import type="com.hvasoft.weather.core.utils.CommonUtils"/>
         <variable
             name="current"
-            type="com.hvasoft.weather.common.entities.Current" />
+            type="com.hvasoft.weather.data.model.Current" />
         <variable
             name="forecast"
-            type="com.hvasoft.weather.common.entities.Forecast" />
+            type="com.hvasoft.weather.data.model.Forecast" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

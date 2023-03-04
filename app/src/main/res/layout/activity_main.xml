@@ -7,13 +7,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.hvasoft.weather.mainModule.viewModel.MainViewModel" />
+            type="com.hvasoft.weather.ui.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".mainModule.view.MainActivity">
+        tools:context=".ui.MainActivity">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTimeZone"
@@ -24,7 +24,7 @@
             android:textAppearance="?attr/textAppearanceHeadline4"
             android:textColor="?attr/colorSecondaryVariant"
             android:textSize="28sp"
-            app:isGone="@{!viewModel.isLoaded()}"
+            app:isGone="@{!viewModel.isLoaded}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +38,7 @@
             android:text="@string/main_current_weather_title"
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:textColor="?attr/colorPrimary"
-            app:isGone="@{!viewModel.isLoaded()}"
+            app:isGone="@{!viewModel.isLoaded}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTimeZone" />
@@ -49,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:current="@{viewModel.result.current}"
-            app:isGone="@{!viewModel.isLoaded()}"
+            app:isGone="@{!viewModel.isLoaded}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCurrentTitle" />
@@ -62,7 +62,7 @@
             android:text="@string/main_forecast_weather_title"
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:textColor="?attr/colorPrimary"
-            app:isGone="@{!viewModel.isLoaded()}"
+            app:isGone="@{!viewModel.isLoaded}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/current" />
@@ -81,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 tools:listitem="@layout/item_weather"
-                app:isGone="@{!viewModel.isLoaded()}" />
+                app:isGone="@{!viewModel.isLoaded}" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -89,7 +89,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            app:isGone="@{viewModel.isLoaded()}"
+            app:isGone="@{viewModel.isLoaded}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvTimeZone"

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -10,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.hvasoft.weather"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -39,7 +40,7 @@ android {
 dependencies {
 
     // General dependencies
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -55,6 +56,9 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.6.1'
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    // Dagger Hilt
+    implementation 'com.google.dagger:hilt-android:2.45'
+    kapt 'com.google.dagger:hilt-android-compiler:2.45'
     // Location
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     // Swipe Refresh Layout
@@ -67,7 +71,7 @@ dependencies {
     // Hamcrest
     testImplementation 'org.hamcrest:hamcrest:2.2'
     // Architecture Components
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
     // Coroutines
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
     // Mock Web Server
